@@ -1,8 +1,13 @@
-- [x] Shortcut that Auto-Launches your Mod
-- [x] Mod in a Separate Folder
-- [x] README file in GIT that explains HOWTO install and play / test your mod
-- [x] UI updates reflecting your Personal Deliverables
-- [x] Help Screen to detail how to play your mod in game
+- [x] Shortcut that Auto-Launches your Mod\
+      Shortcut property "+set game winmon"
+- [x] Mod in a Separate Folder\
+      Winmon folder
+- [x] README file in GIT that explains HOWTO install and play / test your mod\
+      Clone the branch, then open the solution file in Visual Studio (i used VS 2019). Build the game folder, then drag into the given "winmon" folder. Add the command-line argument "+set game winmon" in your quake 2 shortcut. Load the shortcut, and you can test the mod!
+- [x] UI updates reflecting your Personal Deliverables\
+      Combat UI, Help Screen UI
+- [x] Help Screen to detail how to play your mod in game\
+      Help Screen (F1)
 
 Final Project Deliverables:
 
