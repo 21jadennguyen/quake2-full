@@ -700,11 +700,11 @@ void SP_monster_supertank (edict_t *self)
 	self->pain = supertank_pain;
 	self->die = supertank_die;
 	self->monsterinfo.stand = supertank_stand;
-	self->monsterinfo.walk = supertank_walk;
-	self->monsterinfo.run = supertank_run;
+	self->monsterinfo.walk = supertank_stand;
+	self->monsterinfo.run = supertank_stand;
 	self->monsterinfo.dodge = NULL;
-	self->monsterinfo.attack = supertank_attack;
-	self->monsterinfo.search = supertank_search;
+	self->monsterinfo.attack = supertank_stand;
+	self->monsterinfo.search = supertank_stand;
 	self->monsterinfo.melee = NULL;
 	self->monsterinfo.sight = NULL;
 

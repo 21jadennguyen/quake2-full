@@ -498,3 +498,5 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define FRAME_death610        	474
 
 #define MODEL_SCALE		1.200000
+
+void SP_monster_soldier(edict_t* self);

@@ -303,6 +303,7 @@ void HelpComputer (edict_t *ent)
 {
 	char	string[1024];
 	char	*sk;
+	gclient_t* cl = ent->client;
 
 	if (skill->value == 0)
 		sk = "easy";
@@ -313,19 +314,26 @@ void HelpComputer (edict_t *ent)
 	else
 		sk = "hard+";
 
+	char allyWinmon[32];
+	StoreWinmonName(cl->winmonList[cl->winmonNum], allyWinmon);
+
 	// send the layout
 	Com_sprintf (string, sizeof(string),
 		"xv 32 yv 8 picn help "			// background
 		"xv 202 yv 12 string2 \"%s\" "		// skill
 		"xv 0 yv 24 cstring2 \"%s\" "		// level name
 		"xv 0 yv 54 cstring2 \"%s\" "		// help 1
-		"xv 0 yv 110 cstring2 \"%s\" "		// help 2
+		"xv 0 yv 62 cstring2 \"%s\" "		// help 1
+		"xv 0 yv 70 cstring2 \"%s\" "		// help 1
+		"xv 0 yv 110 cstring2 \"Current Winmon: %s\" "		// help 2
 		"xv 50 yv 164 string2 \" kills     goals    secrets\" "
 		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ", 
 		sk,
 		level.level_name,
-		game.helpmessage1,
-		game.helpmessage2,
+		"welcome to winmon!",
+		"shoot monsters with your",
+		"blaster to enter fights.",
+		allyWinmon,
 		level.killed_monsters, level.total_monsters, 
 		level.found_goals, level.total_goals,
 		level.found_secrets, level.total_secrets);
@@ -335,6 +343,209 @@ void HelpComputer (edict_t *ent)
 	gi.unicast (ent, true);
 }
 
+/*
+==================
+WinmonHud
+
+Draw winmon hud.
+==================
+*/
+void WinmonHud(edict_t* ent)
+{
+	char	string[2048];
+	char* sk;
+	gclient_t* cl = ent->client;
+
+	char allyWinmon[32];
+	StoreWinmonName(cl->winmonList[cl->winmonNum], allyWinmon);
+
+	char enemyWinmon[32];
+	StoreWinmonName(cl->winmonEnemy, enemyWinmon);
+
+	char move1[32];
+	char move2[32];
+	char move3[32];
+	char move4[32];
+
+	StoreWinmonMoves(cl->winmonList[cl->winmonNum], move1, move2, move3, move4);
+
+	// send the layout
+	Com_sprintf(string, sizeof(string),
+		"xv 32 yv 8 picn winmontest "					// background
+		"xv 46 yv 12 string2 \"%s \" "		// skill
+		"xv 46 yv 24 string2 \"level: %i\" "				// level name
+		"xv 46 yv 32 string2 \"hp: %i\" "
+		"xv 120 yv 50 string2 \"Q: Next turn\" "
+		"xv 120 yv 50 string2 \"%s \" "
+		"xv 200 yv 12 string2 \"%s \" "			// help 1
+		"xv 200 yv 24 string2 \"level: 1\" "				// level name
+		"xv 200 yv 32 string2 \"hp: %i\" "				// help 2
+		"xv 36 yv 144 string2 \"J: %s \" "
+		"xv 36 yv 156 string2 \"K: %s \" "
+		"xv 36 yv 168 string2 \"L: %s \" "
+		"xv 36 yv 180 string2 \"P: %s \" ",
+		allyWinmon,
+		cl->winmonLevels[cl->winmonNum],
+		cl->currentWinmonHealth,
+		cl->winmonMessage,
+		enemyWinmon,
+		cl->enemyWinmonHealth,
+		move1,
+		move2,
+		move3,
+		move4
+	);
+
+	gi.WriteByte(svc_layout);
+	gi.WriteString(string);
+	gi.unicast(ent, true);
+}
+
+void StoreWinmonMoves(int winmonNum, char* move1, char* move2, char* move3, char* move4) {
+	if (winmonNum == 0) {
+		memset(move1, 0, sizeof("Wackle: 10 dmg 100 acc"));
+		strncpy(move1, "Wackle: 10 dmg 100 acc", sizeof("Wackle: 10 dmg 100 acc") - 1);
+		memset(move2, 0, sizeof("Wember: 20 dmg 100 acc"));
+		strncpy(move2, "Wember: 20 dmg 100 acc", sizeof("Wember: 20 dmg 100 acc") - 1);
+		memset(move3, 0, sizeof("Wake Wown: 30 dmg 80 acc"));
+		strncpy(move3, "Wake Wown: 30 dmg 80 acc", sizeof("Wake Wown: 30 dmg 80 acc") - 1);
+		memset(move4, 0, sizeof("Wail Whip"));
+		strncpy(move4, "Wail Whip", sizeof("Wail Whip") - 1);
+	}
+	else if (winmonNum == 1) {
+		memset(move1, 0, sizeof("Weint: 30 dmg 100 acc"));
+		strncpy(move1, "Weint: 30 dmg 100 acc", sizeof("Weint: 30 dmg 100 acc") - 1);
+		memset(move2, 0, sizeof("Wame Wurst: 40 dmg 100 acc"));
+		strncpy(move2, "Wame Wurst: 40 dmg 100 acc", sizeof("Wame Wurst: 40 dmg 100 acc") - 1);
+		memset(move3, 0, sizeof("Wire Wang: 60 dmg 80 acc"));
+		strncpy(move3, "Wire Wang: 60 dmg 80 acc", sizeof("Wire Wang: 60 dmg 80 acc") - 1);
+		memset(move4, 0, sizeof("Wrowl"));
+		strncpy(move4, "Wrowl", sizeof("Wrowl") - 1);
+	}
+	else if (winmonNum == 2) {
+		memset(move1, 0, sizeof("Wolar Beam: 80 dmg 100 acc"));
+		strncpy(move1, "Wolar Beam: 80 dmg 100 acc", sizeof("Wolar Beam: 80 dmg 100 acc") - 1);
+		memset(move2, 0, sizeof("Wamethrower: 60 dmg 100 acc"));
+		strncpy(move2, "Wamethrower: 60 dmg 100 acc", sizeof("Wamethrower: 60 dmg 100 acc") - 1);
+		memset(move3, 0, sizeof("Wire Wlast: 100 dmg 80 acc"));
+		strncpy(move3, "Wire Wlast: 100 dmg 80 acc", sizeof("Wire Wlast: 100 dmg 80 acc") - 1);
+		memset(move4, 0, sizeof("Wrotect"));
+		strncpy(move4, "Wrotect", sizeof("Wrotect") - 1);
+	}
+	else if (winmonNum == 3) {
+		memset(move1, 0, sizeof("Wackle: 10 dmg 100 acc"));
+		strncpy(move1, "Wackle: 10 dmg 100 acc", sizeof("Wackle: 10 dmg 100 acc") - 1);
+		memset(move2, 0, sizeof("Water Wun: 20 dmg 100 acc"));
+		strncpy(move2, "Water Wun: 20 dmg 100 acc", sizeof("Water Wun: 20 dmg 100 acc") - 1);
+		memset(move3, 0, sizeof("Wake Wown: 30 dmg 80 acc"));
+		strncpy(move3, "Wake Wown: 30 dmg 80 acc", sizeof("Wake Wown: 30 dmg 80 acc") - 1);
+		memset(move4, 0, sizeof("Wail Whip"));
+		strncpy(move4, "Wail Whip", sizeof("Wail Whip") - 1);
+	}
+	else if (winmonNum == 4) {
+		memset(move1, 0, sizeof("Weint: 30 dmg 100 acc"));
+		strncpy(move1, "Weint: 30 dmg 100 acc", sizeof("Weint: 30 dmg 100 acc") - 1);
+		memset(move2, 0, sizeof("Wame Wurst: 40 dmg 100 acc"));
+		strncpy(move2, "Water Wulse: 40 dmg 100 acc", sizeof("Water Wulse: 40 dmg 100 acc") - 1);
+		memset(move3, 0, sizeof("Wazor Whell: 60 dmg 80 acc"));
+		strncpy(move3, "Wazor Whell: 60 dmg 80 acc", sizeof("Wazor Whell: 60 dmg 80 acc") - 1);
+		memset(move4, 0, sizeof("Wrowl"));
+		strncpy(move4, "Wrowl", sizeof("Wrowl") - 1);
+	}
+	else if (winmonNum == 5) {
+		memset(move1, 0, sizeof("Wetaliate: 80 dmg 100 acc"));
+		strncpy(move1, "Wetaliate: 80 dmg 100 acc", sizeof("Wetaliate: 80 dmg 100 acc") - 1);
+		memset(move2, 0, sizeof("Wcald: 60 dmg 100 acc"));
+		strncpy(move2, "Wcald: 60 dmg 100 acc", sizeof("Wcald: 60 dmg 100 acc") - 1);
+		memset(move3, 0, sizeof("Wydro Wump: 100 dmg 80 acc"));
+		strncpy(move3, "Wydro Wump: 100 dmg 80 acc", sizeof("Wydro Wump: 100 dmg 80 acc") - 1);
+		memset(move4, 0, sizeof("Wrotect"));
+		strncpy(move4, "Wrotect", sizeof("Wrotect") - 1);
+	}
+	else if (winmonNum == 6) {
+		memset(move1, 0, sizeof("Wackle: 10 dmg 100 acc"));
+		strncpy(move1, "Wackle: 10 dmg 100 acc", sizeof("Wackle: 10 dmg 100 acc") - 1);
+		memset(move2, 0, sizeof("Weafage: 20 dmg 100 acc"));
+		strncpy(move2, "Weafage: 20 dmg 100 acc", sizeof("Weafage: 20 dmg 100 acc") - 1);
+		memset(move3, 0, sizeof("Wake Wown: 30 dmg 80 acc"));
+		strncpy(move3, "Wake Wown: 30 dmg 80 acc", sizeof("Wake Wown: 30 dmg 80 acc") - 1);
+		memset(move4, 0, sizeof("Wail Whip"));
+		strncpy(move4, "Wail Whip", sizeof("Wail Whip") - 1);
+	}
+	else if (winmonNum == 7) {
+		memset(move1, 0, sizeof("Wtomp: 30 dmg 100 acc"));
+		strncpy(move1, "Wtomp: 30 dmg 100 acc", sizeof("Wtomp: 30 dmg 100 acc") - 1);
+		memset(move2, 0, sizeof("Wnergy Wall: 40 dmg 100 acc"));
+		strncpy(move2, "Wnergy Wall: 40 dmg 100 acc", sizeof("Wnergy Wall: 40 dmg 100 acc") - 1);
+		memset(move3, 0, sizeof("Wazor Weaf: 60 dmg 80 acc"));
+		strncpy(move3, "Wazor Weaf: 60 dmg 80 acc", sizeof("Wazor Weaf: 60 dmg 80 acc") - 1);
+		memset(move4, 0, sizeof("Wrowl"));
+		strncpy(move4, "Wrowl", sizeof("Wrowl") - 1);
+	}
+	else if (winmonNum == 8) {
+		memset(move1, 0, sizeof("Wouble Wdge: 80 dmg 100 acc"));
+		strncpy(move1, "Wouble Wdge: 80 dmg 100 acc", sizeof("Wouble Wdge: 80 dmg 100 acc") - 1);
+		memset(move2, 0, sizeof("Wetal Wlizzard: 60 dmg 100 acc"));
+		strncpy(move2, "Wetal Wlizzard: 60 dmg 100 acc", sizeof("Wetal Wlizzard: 60 dmg 100 acc") - 1);
+		memset(move3, 0, sizeof("Weaf Wtorm: 100 dmg 80 acc"));
+		strncpy(move3, "Weaf Wtorm: 100 dmg 80 acc", sizeof("Weaf Wtorm: 100 dmg 80 acc") - 1);
+		memset(move4, 0, sizeof("Wrotect"));
+		strncpy(move4, "Wrotect", sizeof("Wrotect") - 1);
+	}
+	else if (winmonNum == 9) {
+		memset(move1, 0, sizeof("Wrength: 40 dmg 100 acc"));
+		strncpy(move1, "Wrength: 40 dmg 100 acc", sizeof("Wrength: 40 dmg 100 acc") - 1);
+		memset(move2, 0, sizeof("Wrotect"));
+		strncpy(move2, "Wrotect", sizeof("Wrotect") - 1);
+		memset(move3, 0, sizeof("Wrowl"));
+		strncpy(move3, "Wrowl", sizeof("Wrowl") - 1);
+		memset(move4, 0, sizeof("Wail Whip"));
+		strncpy(move4, "Wail Whip", sizeof("Wail Whip") - 1);
+	}
+}
+
+void StoreWinmonName(int winmonNum, char* str) {
+	if (winmonNum == 0) {
+		memset(str, 0, sizeof("Wyndaquil"));
+		strncpy(str, "Wyndaquil", sizeof("Wyndaquil") - 1);
+	} 
+	else if (winmonNum == 1) {
+		memset(str, 0, sizeof("Wuilava"));
+		strncpy(str, "Wuilava", sizeof("Wuilava") - 1);
+	}
+	else if (winmonNum == 2) {
+		memset(str, 0, sizeof("Wyphlosion"));
+		strncpy(str, "Wyphlosion", sizeof("Wyphlosion") - 1);
+	}
+	else if (winmonNum == 3) {
+		memset(str, 0, sizeof("Wotodile"));
+		strncpy(str, "Wotodile", sizeof("Wotodile") - 1);
+	}
+	else if (winmonNum == 4) {
+		memset(str, 0, sizeof("Wroconaw"));
+		strncpy(str, "Wroconaw", sizeof("Wroconaw") - 1);
+	}
+	else if (winmonNum == 5) {
+		memset(str, 0, sizeof("Weraligatr"));
+		strncpy(str, "Weraligatr", sizeof("Weraligatr") - 1);
+	}
+	else if (winmonNum == 6) {
+		memset(str, 0, sizeof("Whikorita"));
+		strncpy(str, "Whikorita", sizeof("Whikorita") - 1);
+	}
+	else if (winmonNum == 7) {
+		memset(str, 0, sizeof("Wayleef"));
+		strncpy(str, "Wayleef", sizeof("Wayleef") - 1);
+	}
+	else if (winmonNum == 8) {
+		memset(str, 0, sizeof("Weganium"));
+		strncpy(str, "Weganium", sizeof("Weganium") - 1);
+	}
+	else if (winmonNum == 9) {
+		memset(str, 0, sizeof("Wevee"));
+		strncpy(str, "Wevee", sizeof("Wevee") - 1);
+	}
+}
 
 /*
 ==================
@@ -363,9 +574,33 @@ void Cmd_Help_f (edict_t *ent)
 
 	ent->client->showhelp = true;
 	ent->client->pers.helpchanged = 0;
-	HelpComputer (ent);
+
+
+	if (ent->client->inWinmonFight) {
+		WinmonHud(ent);
+	}
+	else {
+		HelpComputer(ent);
+	}
 }
 
+/*
+==================
+Cmd_Winmon_f
+
+Display the current winmon hud
+==================
+*/
+void Cmd_Winmon_f(edict_t* ent)
+{
+
+	ent->client->showinventory = false;
+	ent->client->showscores = false;
+	ent->client->showhelp = false;
+
+	ent->client->showwinmon = true;
+	WinmonHud(ent);
+}
 
 //=======================================================================
 

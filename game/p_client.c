@@ -1250,6 +1250,44 @@ void PutClientInServer (edict_t *ent)
 
 	gi.linkentity (ent);
 
+	client->winmonNum = 0;
+	client->inWinmonFight = false;
+	client->showwinmon = false;
+	client->allyWinmonMove = 0;
+
+	client->winmonList[0] = 0;
+	client->winmonList[1] = 1;
+	client->winmonList[2] = 2;
+	client->winmonList[3] = 3;
+	client->winmonList[4] = 4;
+	client->winmonList[5] = 5;
+	client->winmonList[6] = 6;
+	client->winmonList[7] = 7;
+	client->winmonList[8] = 8;
+	client->winmonList[9] = 9;
+
+	client->winmonLevels[0] = 1;
+	client->winmonLevels[1] = 18;
+	client->winmonLevels[2] = 36;
+	client->winmonLevels[3] = 1;
+	client->winmonLevels[4] = 18;
+	client->winmonLevels[5] = 36;
+	client->winmonLevels[6] = 1;
+	client->winmonLevels[7] = 18;
+	client->winmonLevels[8] = 36;
+	client->winmonLevels[9] = 1;
+
+	client->winmonHealths[0] = 50;
+	client->winmonHealths[1] = 150;
+	client->winmonHealths[2] = 300;
+	client->winmonHealths[3] = 50;
+	client->winmonHealths[4] = 150;
+	client->winmonHealths[5] = 300;
+	client->winmonHealths[6] = 50;
+	client->winmonHealths[7] = 150;
+	client->winmonHealths[8] = 300;
+	client->winmonHealths[9] = 50;
+
 	// force the current weapon up
 	client->newweapon = client->pers.weapon;
 	ChangeWeapon (ent);
@@ -1587,6 +1625,10 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		return;
 	}
 
+	/*if (client->inWinmonFight) {
+		return;
+	}*/
+
 	pm_passent = ent;
 
 	if (ent->client->chase_target) {
@@ -1690,6 +1732,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 				continue;	// duplicated
 			if (!other->touch)
 				continue;
+
 			other->touch (other, ent, NULL, NULL);
 		}
 

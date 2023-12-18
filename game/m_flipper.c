@@ -389,10 +389,10 @@ void SP_monster_flipper (edict_t *self)
 	self->die = flipper_die;
 
 	self->monsterinfo.stand = flipper_stand;
-	self->monsterinfo.walk = flipper_walk;
-	self->monsterinfo.run = flipper_start_run;
-	self->monsterinfo.melee = flipper_melee;
-	self->monsterinfo.sight = flipper_sight;
+	self->monsterinfo.walk = flipper_stand;
+	self->monsterinfo.run = flipper_stand;
+	self->monsterinfo.melee = flipper_stand;
+	self->monsterinfo.sight = flipper_stand;
 
 	gi.linkentity (self);
 

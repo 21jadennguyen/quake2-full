@@ -836,13 +836,13 @@ void SP_monster_tank (edict_t *self)
 	self->pain = tank_pain;
 	self->die = tank_die;
 	self->monsterinfo.stand = tank_stand;
-	self->monsterinfo.walk = tank_walk;
-	self->monsterinfo.run = tank_run;
+	self->monsterinfo.walk = tank_stand;
+	self->monsterinfo.run = tank_stand;
 	self->monsterinfo.dodge = NULL;
-	self->monsterinfo.attack = tank_attack;
+	self->monsterinfo.attack = tank_stand;
 	self->monsterinfo.melee = NULL;
-	self->monsterinfo.sight = tank_sight;
-	self->monsterinfo.idle = tank_idle;
+	self->monsterinfo.sight = tank_stand;
+	self->monsterinfo.idle = tank_stand;
 
 	gi.linkentity (self);
 	

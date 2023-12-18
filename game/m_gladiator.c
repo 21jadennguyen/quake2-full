@@ -370,14 +370,14 @@ void SP_monster_gladiator (edict_t *self)
 	self->die = gladiator_die;
 
 	self->monsterinfo.stand = gladiator_stand;
-	self->monsterinfo.walk = gladiator_walk;
-	self->monsterinfo.run = gladiator_run;
+	self->monsterinfo.walk = gladiator_stand;
+	self->monsterinfo.run = gladiator_stand;
 	self->monsterinfo.dodge = NULL;
-	self->monsterinfo.attack = gladiator_attack;
-	self->monsterinfo.melee = gladiator_melee;
-	self->monsterinfo.sight = gladiator_sight;
-	self->monsterinfo.idle = gladiator_idle;
-	self->monsterinfo.search = gladiator_search;
+	self->monsterinfo.attack = gladiator_stand;
+	self->monsterinfo.melee = gladiator_stand;
+	self->monsterinfo.sight = gladiator_stand;
+	self->monsterinfo.idle = gladiator_stand;
+	self->monsterinfo.search = gladiator_stand;
 
 	gi.linkentity (self);
 	self->monsterinfo.currentmove = &gladiator_move_stand;

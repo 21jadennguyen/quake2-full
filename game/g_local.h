@@ -30,6 +30,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // the "gameversion" client command will print this plus compile date
 #define	GAMEVERSION	"baseq2"
 
+
+// winmon types
+#define TYPE_NORMAL			1
+#define TYPE_FIRE			2
+#define TYPE_WATER			3
+#define TYPE_GRASS			4
+
+// winmon messages
+#define ALLY_ATTACK			1
+#define ENEMY_ATTACK		2
+#define ALLY_FAINT			3
+#define ENEMY_FAINT			4
+#define ALLY_BLOCK			5
+#define ALLY_MISS			6
+#define ENEMY_MISS			7
+
+// winmon turn
+#define ALLY_TURN			0
+#define	ENEMY_TURN			1
+
 // protocol bytes that can be directly added to messages
 #define	svc_muzzleflash		1
 #define	svc_muzzleflash2	2
@@ -601,6 +621,14 @@ extern	gitem_t	itemlist[];
 //
 void Cmd_Help_f (edict_t *ent);
 void Cmd_Score_f (edict_t *ent);
+void Cmd_Winmon_f(edict_t* ent);
+void Cmd_Kill_f(edict_t* ent);
+void EnterWinmonFight(edict_t* ent, edict_t* other);
+void UseWinmonAttack(edict_t* ent, int winmonMove);
+void EnemyWinmonAttack(edict_t* ent);
+void StoreWinmonName(int winmonNum, char* str);
+void StoreWinmonCMDName(int winmonNum, char* str);
+void StoreWinmonMoves(int winmonNum, char* move1, char* move2, char* move3, char* move4);
 
 //
 // g_items.c
@@ -890,6 +918,31 @@ struct gclient_s
 
 	qboolean	showscores;			// set layout stat
 	qboolean	showinventory;		// set layout stat
+
+	// winmon variables
+	qboolean	inWinmonFight;
+	qboolean	showwinmon;
+	int			winmonNum;
+	int			allyWinmonMove;
+	int			currentWinmonHealth;
+	edict_t*	allyWinmonEnt;
+	int			winmonList[10];
+	int			winmonLevels[10];
+	int			winmonHealths[10];
+
+	int			winmonMessage;
+	int			winmonTurn;
+
+	qboolean	winmonProtect;
+
+	int			winmonEnemy;
+	int			enemyWinmonMove;
+	int			enemyWinmonHealth;
+	float		enemyDefendMult;
+	float		enemyAttackMult;
+
+	edict_t*	enemyWinmonEnt;
+
 	qboolean	showhelp;
 	qboolean	showhelpicon;
 

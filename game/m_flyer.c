@@ -610,12 +610,12 @@ void SP_monster_flyer (edict_t *self)
 	self->die = flyer_die;
 
 	self->monsterinfo.stand = flyer_stand;
-	self->monsterinfo.walk = flyer_walk;
-	self->monsterinfo.run = flyer_run;
-	self->monsterinfo.attack = flyer_attack;
-	self->monsterinfo.melee = flyer_melee;
-	self->monsterinfo.sight = flyer_sight;
-	self->monsterinfo.idle = flyer_idle;
+	self->monsterinfo.walk = flyer_stand;
+	self->monsterinfo.run = flyer_stand;
+	self->monsterinfo.attack = flyer_stand;
+	self->monsterinfo.melee = flyer_stand;
+	self->monsterinfo.sight = flyer_stand;
+	self->monsterinfo.idle = flyer_stand;
 
 	gi.linkentity (self);
 

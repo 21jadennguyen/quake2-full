@@ -661,12 +661,12 @@ void SP_monster_chick (edict_t *self)
 	self->die = chick_die;
 
 	self->monsterinfo.stand = chick_stand;
-	self->monsterinfo.walk = chick_walk;
-	self->monsterinfo.run = chick_run;
-	self->monsterinfo.dodge = chick_dodge;
-	self->monsterinfo.attack = chick_attack;
-	self->monsterinfo.melee = chick_melee;
-	self->monsterinfo.sight = chick_sight;
+	self->monsterinfo.walk = chick_stand;
+	self->monsterinfo.run = chick_stand;
+	self->monsterinfo.dodge = chick_stand;
+	self->monsterinfo.attack = chick_stand;
+	self->monsterinfo.melee = chick_stand;
+	self->monsterinfo.sight = chick_stand;
 
 	gi.linkentity (self);
 

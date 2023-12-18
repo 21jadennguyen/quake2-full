@@ -1,0 +1,85 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(499,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  g_cmds.c
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(74,1): warning C4005: 'FRAME_pain101': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(78): message : see previous definition of 'FRAME_pain101'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(75,1): warning C4005: 'FRAME_pain102': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(79): message : see previous definition of 'FRAME_pain102'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(76,1): warning C4005: 'FRAME_pain103': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(80): message : see previous definition of 'FRAME_pain103'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(77,1): warning C4005: 'FRAME_pain104': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(81): message : see previous definition of 'FRAME_pain104'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(79,1): warning C4005: 'FRAME_pain201': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(82): message : see previous definition of 'FRAME_pain201'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(80,1): warning C4005: 'FRAME_pain202': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(83): message : see previous definition of 'FRAME_pain202'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(81,1): warning C4005: 'FRAME_pain203': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(84): message : see previous definition of 'FRAME_pain203'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(82,1): warning C4005: 'FRAME_pain204': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(85): message : see previous definition of 'FRAME_pain204'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(296,1): warning C4005: 'FRAME_death101': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(202): message : see previous definition of 'FRAME_death101'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(297,1): warning C4005: 'FRAME_death102': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(203): message : see previous definition of 'FRAME_death102'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(298,1): warning C4005: 'FRAME_death103': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(204): message : see previous definition of 'FRAME_death103'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(299,1): warning C4005: 'FRAME_death104': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(205): message : see previous definition of 'FRAME_death104'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(300,1): warning C4005: 'FRAME_death105': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(206): message : see previous definition of 'FRAME_death105'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(301,1): warning C4005: 'FRAME_death106': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(207): message : see previous definition of 'FRAME_death106'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(332,1): warning C4005: 'FRAME_death201': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(208): message : see previous definition of 'FRAME_death201'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(333,1): warning C4005: 'FRAME_death202': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(209): message : see previous definition of 'FRAME_death202'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(334,1): warning C4005: 'FRAME_death203': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(210): message : see previous definition of 'FRAME_death203'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(335,1): warning C4005: 'FRAME_death204': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(211): message : see previous definition of 'FRAME_death204'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(336,1): warning C4005: 'FRAME_death205': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(212): message : see previous definition of 'FRAME_death205'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(337,1): warning C4005: 'FRAME_death206': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(213): message : see previous definition of 'FRAME_death206'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(367,1): warning C4005: 'FRAME_death301': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(214): message : see previous definition of 'FRAME_death301'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(368,1): warning C4005: 'FRAME_death302': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(215): message : see previous definition of 'FRAME_death302'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(369,1): warning C4005: 'FRAME_death303': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(216): message : see previous definition of 'FRAME_death303'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(370,1): warning C4005: 'FRAME_death304': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(217): message : see previous definition of 'FRAME_death304'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(371,1): warning C4005: 'FRAME_death305': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(218): message : see previous definition of 'FRAME_death305'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(372,1): warning C4005: 'FRAME_death306': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(219): message : see previous definition of 'FRAME_death306'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(373,1): warning C4005: 'FRAME_death307': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(220): message : see previous definition of 'FRAME_death307'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(374,1): warning C4005: 'FRAME_death308': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(221): message : see previous definition of 'FRAME_death308'
+C:\Users\jaden\source\repos\quake2-full\game\m_soldier.h(500,1): warning C4005: 'MODEL_SCALE': macro redefinition
+C:\Users\jaden\source\repos\quake2-full\game\m_player.h(223): message : see previous definition of 'MODEL_SCALE'
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(71,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(72,27): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(72,12): warning C4024: 'strncpy': different types for formal and actual parameter 1
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(70,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(72,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(305,31): warning C4013: 'handleWinmonMult' undefined; assuming extern returning int
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(305,49): warning C4013: 'getType' undefined; assuming extern returning int
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(677,8): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(700,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(701,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1365,11): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1368,10): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1451,10): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1452,10): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1453,10): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1464,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1471,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1518,13): warning C4459: declaration of 'st' hides global declaration
+C:\Users\jaden\source\repos\quake2-full\game\g_local.h(476,21): message : see declaration of 'st'
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1540,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1528,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(1536,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jaden\source\repos\quake2-full\game\g_cmds.c(595): warning C4715: 'getType': not all control paths return a value
+     Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
+  game.vcxproj -> C:\Users\jaden\source\repos\quake2-full\game\release\gamex86.dll

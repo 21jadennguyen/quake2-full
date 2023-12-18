@@ -590,13 +590,13 @@ void SP_monster_infantry (edict_t *self)
 	self->die = infantry_die;
 
 	self->monsterinfo.stand = infantry_stand;
-	self->monsterinfo.walk = infantry_walk;
-	self->monsterinfo.run = infantry_run;
-	self->monsterinfo.dodge = infantry_dodge;
-	self->monsterinfo.attack = infantry_attack;
+	self->monsterinfo.walk = infantry_stand;
+	self->monsterinfo.run = infantry_stand;
+	self->monsterinfo.dodge = infantry_stand;
+	self->monsterinfo.attack = infantry_stand;
 	self->monsterinfo.melee = NULL;
-	self->monsterinfo.sight = infantry_sight;
-	self->monsterinfo.idle = infantry_fidget;
+	self->monsterinfo.sight = infantry_stand;
+	self->monsterinfo.idle = infantry_stand;
 
 	gi.linkentity (self);
 

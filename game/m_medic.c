@@ -750,15 +750,15 @@ void SP_monster_medic (edict_t *self)
 	self->die = medic_die;
 
 	self->monsterinfo.stand = medic_stand;
-	self->monsterinfo.walk = medic_walk;
-	self->monsterinfo.run = medic_run;
-	self->monsterinfo.dodge = medic_dodge;
-	self->monsterinfo.attack = medic_attack;
+	self->monsterinfo.walk = medic_stand;
+	self->monsterinfo.run = medic_stand;
+	self->monsterinfo.dodge = medic_stand;
+	self->monsterinfo.attack = medic_stand;
 	self->monsterinfo.melee = NULL;
-	self->monsterinfo.sight = medic_sight;
-	self->monsterinfo.idle = medic_idle;
-	self->monsterinfo.search = medic_search;
-	self->monsterinfo.checkattack = medic_checkattack;
+	self->monsterinfo.sight = medic_stand;
+	self->monsterinfo.idle = medic_stand;
+	self->monsterinfo.search = medic_stand;
+	self->monsterinfo.checkattack = medic_stand;
 
 	gi.linkentity (self);
 

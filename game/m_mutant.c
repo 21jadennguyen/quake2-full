@@ -644,15 +644,15 @@ void SP_monster_mutant (edict_t *self)
 	self->die = mutant_die;
 
 	self->monsterinfo.stand = mutant_stand;
-	self->monsterinfo.walk = mutant_walk;
-	self->monsterinfo.run = mutant_run;
+	self->monsterinfo.walk = mutant_stand;
+	self->monsterinfo.run = mutant_stand;
 	self->monsterinfo.dodge = NULL;
-	self->monsterinfo.attack = mutant_jump;
-	self->monsterinfo.melee = mutant_melee;
-	self->monsterinfo.sight = mutant_sight;
-	self->monsterinfo.search = mutant_search;
-	self->monsterinfo.idle = mutant_idle;
-	self->monsterinfo.checkattack = mutant_checkattack;
+	self->monsterinfo.attack = mutant_stand;
+	self->monsterinfo.melee = mutant_stand;
+	self->monsterinfo.sight = mutant_stand;
+	self->monsterinfo.search = mutant_stand;
+	self->monsterinfo.idle = mutant_stand;
+	self->monsterinfo.checkattack = mutant_stand;
 
 	gi.linkentity (self);
 	

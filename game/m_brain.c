@@ -655,14 +655,14 @@ void SP_monster_brain (edict_t *self)
 	self->die = brain_die;
 
 	self->monsterinfo.stand = brain_stand;
-	self->monsterinfo.walk = brain_walk;
-	self->monsterinfo.run = brain_run;
-	self->monsterinfo.dodge = brain_dodge;
+	self->monsterinfo.walk = brain_stand;
+	self->monsterinfo.run = brain_stand;
+	self->monsterinfo.dodge = brain_stand;
 //	self->monsterinfo.attack = brain_attack;
-	self->monsterinfo.melee = brain_melee;
-	self->monsterinfo.sight = brain_sight;
-	self->monsterinfo.search = brain_search;
-	self->monsterinfo.idle = brain_idle;
+	self->monsterinfo.melee = brain_stand;
+	self->monsterinfo.sight = brain_stand;
+	self->monsterinfo.search = brain_stand;
+	self->monsterinfo.idle = brain_stand;
 
 	self->monsterinfo.power_armor_type = POWER_ARMOR_SCREEN;
 	self->monsterinfo.power_armor_power = 100;

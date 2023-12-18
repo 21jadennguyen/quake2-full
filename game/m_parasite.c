@@ -537,11 +537,11 @@ void SP_monster_parasite (edict_t *self)
 	self->die = parasite_die;
 
 	self->monsterinfo.stand = parasite_stand;
-	self->monsterinfo.walk = parasite_start_walk;
-	self->monsterinfo.run = parasite_start_run;
-	self->monsterinfo.attack = parasite_attack;
-	self->monsterinfo.sight = parasite_sight;
-	self->monsterinfo.idle = parasite_idle;
+	self->monsterinfo.walk = parasite_stand;
+	self->monsterinfo.run = parasite_stand;
+	self->monsterinfo.attack = parasite_stand;
+	self->monsterinfo.sight = parasite_stand;
+	self->monsterinfo.idle = parasite_stand;
 
 	gi.linkentity (self);
 

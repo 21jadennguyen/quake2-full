@@ -611,13 +611,13 @@ void SP_monster_gunner (edict_t *self)
 	self->die = gunner_die;
 
 	self->monsterinfo.stand = gunner_stand;
-	self->monsterinfo.walk = gunner_walk;
-	self->monsterinfo.run = gunner_run;
-	self->monsterinfo.dodge = gunner_dodge;
-	self->monsterinfo.attack = gunner_attack;
+	self->monsterinfo.walk = gunner_stand;
+	self->monsterinfo.run = gunner_stand;
+	self->monsterinfo.dodge = gunner_stand;
+	self->monsterinfo.attack = gunner_stand;
 	self->monsterinfo.melee = NULL;
-	self->monsterinfo.sight = gunner_sight;
-	self->monsterinfo.search = gunner_search;
+	self->monsterinfo.sight = gunner_stand;
+	self->monsterinfo.search = gunner_stand;
 
 	gi.linkentity (self);
 

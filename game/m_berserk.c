@@ -440,13 +440,13 @@ void SP_monster_berserk (edict_t *self)
 	self->die = berserk_die;
 
 	self->monsterinfo.stand = berserk_stand;
-	self->monsterinfo.walk = berserk_walk;
-	self->monsterinfo.run = berserk_run;
+	self->monsterinfo.walk = berserk_stand;
+	self->monsterinfo.run = berserk_stand;
 	self->monsterinfo.dodge = NULL;
 	self->monsterinfo.attack = NULL;
-	self->monsterinfo.melee = berserk_melee;
-	self->monsterinfo.sight = berserk_sight;
-	self->monsterinfo.search = berserk_search;
+	self->monsterinfo.melee = berserk_stand;
+	self->monsterinfo.sight = berserk_stand;
+	self->monsterinfo.search = berserk_stand;
 
 	self->monsterinfo.currentmove = &berserk_move_stand;
 	self->monsterinfo.scale = MODEL_SCALE;

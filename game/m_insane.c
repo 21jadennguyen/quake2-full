@@ -655,8 +655,8 @@ void SP_misc_insane (edict_t *self)
 	self->die = insane_die;
 
 	self->monsterinfo.stand = insane_stand;
-	self->monsterinfo.walk = insane_walk;
-	self->monsterinfo.run = insane_run;
+	self->monsterinfo.walk = insane_stand;
+	self->monsterinfo.run = insane_stand;
 	self->monsterinfo.dodge = NULL;
 	self->monsterinfo.attack = NULL;
 	self->monsterinfo.melee = NULL;

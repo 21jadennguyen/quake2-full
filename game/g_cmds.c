@@ -19,7 +19,639 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 #include "g_local.h"
 #include "m_player.h"
+#include "m_soldier.h"
+#include <time.h>
+#include <stdlib.h>
 
+
+void EnterWinmonFight(edict_t* ent, edict_t* other) {
+	gclient_t* cl;
+	cl = ent->client;
+
+	if (0 == strcmp(other->classname, "monster_soldier") || 0 == strcmp(other->classname, "monster_soldier_light")) {
+		cl->winmonEnemy = 0;
+	}
+	else if (0 == strcmp(other->classname, "monster_infantry")) {
+		cl->winmonEnemy = 1;
+	}
+	else if (0 == strcmp(other->classname, "monster_gladiator")) {
+		cl->winmonEnemy = 2;
+	}
+	else if (0 == strcmp(other->classname, "monster_berserk")) {
+		cl->winmonEnemy = 3;
+	}
+	else if (0 == strcmp(other->classname, "monster_gunner")) {
+		cl->winmonEnemy = 4;
+	}
+	else if (0 == strcmp(other->classname, "monster_tank")) {
+		cl->winmonEnemy = 5;
+	}
+	else if (0 == strcmp(other->classname, "monster_parasite")) {
+		cl->winmonEnemy = 6;
+	}
+	else if (0 == strcmp(other->classname, "monster_medic")) {
+		cl->winmonEnemy = 7;
+	}
+	else if (0 == strcmp(other->classname, "monster_mutant")) {
+		cl->winmonEnemy = 8;
+	}
+	else if (0 == strcmp(other->classname, "monster_flyer")) {
+		cl->winmonEnemy = 9;
+	}
+	else {
+		gi.dprintf("You missed...\n");
+		return;
+	}
+	cl->enemyWinmonEnt = other;
+	cl->currentWinmonHealth = cl->winmonHealths[cl->winmonList[cl->winmonNum]] + cl->winmonLevels[cl->winmonNum] * 5;
+	cl->inWinmonFight = true;
+	cl->enemyWinmonHealth = cl->winmonHealths[cl->winmonEnemy];
+	cl->enemyAttackMult = 1.0f;
+	cl->enemyDefendMult = 1.0f;
+	cl->winmonTurn = ALLY_TURN;
+	Cmd_Help_f(ent);
+}
+
+
+
+void UseWinmonAttack(edict_t* ent, int winmonMove) {
+
+	gclient_t *cl = ent->client;
+	if (!cl->inWinmonFight) {
+		return;
+	}
+	if (cl->winmonTurn == ENEMY_TURN) {
+		return;
+	}
+
+	int damage = 0;
+	int moveType = TYPE_NORMAL;
+	int accuracy = 100;
+	int winmonNum = cl->winmonList[cl->winmonNum];
+
+	int status = -1; // 0 = protect, 1 = growl, 2 = tail whip
+	cl->allyWinmonMove = winmonMove;
+
+	if (winmonNum == 0) {
+		if (winmonMove == 1) {
+			damage = 10;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 20;
+			moveType = TYPE_FIRE;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 30;
+			moveType = TYPE_NORMAL;
+			accuracy = 80;
+		}
+		if (winmonMove == 4) {
+			status = 2;
+		}
+	}
+	else if (winmonNum == 1) {
+		if (winmonMove == 1) {
+			damage = 30;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 40;
+			moveType = TYPE_FIRE;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 60;
+			moveType = TYPE_FIRE;
+			accuracy = 80;
+		}
+		if (winmonMove == 4) {
+			status = 1;
+		}
+	}
+	else if (winmonNum == 2) {
+		if (winmonMove == 1) {
+			damage = 80;
+			moveType = TYPE_GRASS;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 60;
+			moveType = TYPE_FIRE;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 100;
+			moveType = TYPE_FIRE;
+			accuracy = 80;
+		}
+		if (winmonMove == 4) {
+			status = 0;
+		}
+	}
+	else if (winmonNum == 3) {
+		if (winmonMove == 1) {
+			damage = 10;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 20;
+			moveType = TYPE_WATER;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 30;
+			moveType = TYPE_NORMAL;
+			accuracy = 80;
+		}
+		if (winmonMove == 4) {
+			status = 2;
+		}
+	}
+	else if (winmonNum == 4) {
+		if (winmonMove == 1) {
+			damage = 20;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 40;
+			moveType = TYPE_WATER;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 60;
+			moveType = TYPE_WATER;
+			accuracy = 80;
+		}
+		if (winmonMove == 4) {
+			status = 1;
+		}
+	}
+	else if (winmonNum == 5) {
+		if (winmonMove == 1) {
+			damage = 80;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 60;
+			moveType = TYPE_WATER;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 100;
+			moveType = TYPE_WATER;
+			accuracy = 80;
+		}
+		if (winmonMove == 4) {
+			status = 0;
+		}
+	}
+	else if (winmonNum == 6) {
+		if (winmonMove == 1) {
+			damage = 10;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 20;
+			moveType = TYPE_GRASS;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 30;
+			moveType = TYPE_NORMAL;
+			accuracy = 80;
+		}
+		if (winmonMove == 4) {
+			status = 2;
+		}
+	}
+	else if (winmonNum == 7) {
+		if (winmonMove == 1) {
+			damage = 20;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 40;
+			moveType = TYPE_GRASS;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 60;
+			moveType = TYPE_GRASS;
+			accuracy = 80;
+		}
+		if (winmonMove == 4) {
+			status = 1;
+		}
+	}
+	else if (winmonNum == 8) {
+		if (winmonMove == 1) {
+			damage = 90;
+			moveType = TYPE_NORMAL;
+			accuracy = 90;
+		}
+		if (winmonMove == 2) {
+			damage = 60;
+			moveType = TYPE_GRASS;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 100;
+			moveType = TYPE_GRASS;
+			accuracy = 80;
+		}
+		if (winmonMove == 4) {
+			status = 0;
+		}
+	}
+	else if (winmonNum == 9) {
+		if (winmonMove == 1) {
+			damage = 40;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			status = 0;
+		}
+		if (winmonMove == 3) {
+			status = 1;
+		}
+		if (winmonMove == 4) {
+			status = 2;
+		}
+	}
+
+	srand(time(NULL));
+	int r = rand() % 100;
+	if (status == -1) {
+		if (r <= accuracy) {
+			damage *= cl->enemyDefendMult;
+			int mult = handleWinmonMult(moveType, getType(cl->winmonEnemy));
+			if (mult == 1) {
+				damage *= 2;
+			}
+			else if (mult == -1) {
+				damage /= 2;
+			}
+			cl->enemyWinmonHealth -= damage;
+			gi.dprintf("You dealt %i damage!\n", damage);
+		}
+		else {
+			gi.dprintf("You missed...\n");
+		}
+	}
+	else if (status == 0) {
+		cl->winmonProtect = true;
+	}
+	else if (status == 1) {
+		cl->enemyAttackMult /= 2.0f;
+	}
+	else if (status == 2) {
+		cl->enemyDefendMult *= 2.0f;
+	}
+
+	//gi.dprintf("damage %i mult %i handlemult %i \n", damage, (int)(cl->enemyDefendMult), (int)(handleWinmonMult(moveType, getType(cl->winmonEnemy))));
+	//gi.dprintf("moveType %i enemyType %i\n", moveType, getType(cl->winmonEnemy));
+	
+	cl->winmonTurn = ENEMY_TURN;
+	Cmd_Help_f(ent);
+	Cmd_Help_f(ent);
+}
+
+void EnemyWinmonAttack(edict_t *ent) {
+	gclient_t* cl = ent->client;
+
+	if (!cl->inWinmonFight) {
+		return;
+	}
+	if (cl->winmonTurn == ALLY_TURN) {
+		return;
+	}
+
+	int damage = 0;
+	int moveType = TYPE_NORMAL;
+	int accuracy = 100;
+	int winmonNum = cl->winmonEnemy;
+	qboolean protect = cl->winmonProtect;
+
+	if (protect) {
+		cl->winmonMessage = ALLY_BLOCK;
+		cl->winmonProtect = false;
+		return;
+	}
+
+	srand(time(NULL));
+	int r = rand() % 3 + 1;
+	int winmonMove = r;
+	cl->enemyWinmonMove = winmonMove;
+
+	if (winmonNum == 0) {
+		if (winmonMove == 1) {
+			damage = 10;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 20;
+			moveType = TYPE_FIRE;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 30;
+			moveType = TYPE_NORMAL;
+			accuracy = 80;
+		}
+	}
+	else if (winmonNum == 1) {
+		if (winmonMove == 1) {
+			damage = 20;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 40;
+			moveType = TYPE_FIRE;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 60;
+			moveType = TYPE_FIRE;
+			accuracy = 80;
+		}
+	}
+	else if (winmonNum == 2) {
+		if (winmonMove == 1) {
+			damage = 80;
+			moveType = TYPE_GRASS;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 60;
+			moveType = TYPE_FIRE;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 100;
+			moveType = TYPE_FIRE;
+			accuracy = 80;
+		}
+	}
+	else if (winmonNum == 3) {
+		if (winmonMove == 1) {
+			damage = 10;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 20;
+			moveType = TYPE_WATER;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 30;
+			moveType = TYPE_NORMAL;
+			accuracy = 80;
+		}
+	}
+	else if (winmonNum == 4) {
+		if (winmonMove == 1) {
+			damage = 20;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 40;
+			moveType = TYPE_WATER;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 60;
+			moveType = TYPE_WATER;
+			accuracy = 80;
+		}
+	}
+	else if (winmonNum == 5) {
+		if (winmonMove == 1) {
+			damage = 80;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 60;
+			moveType = TYPE_WATER;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 100;
+			moveType = TYPE_WATER;
+			accuracy = 80;
+		}
+	}
+	else if (winmonNum == 6) {
+		if (winmonMove == 1) {
+			damage = 10;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 20;
+			moveType = TYPE_GRASS;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 30;
+			moveType = TYPE_NORMAL;
+			accuracy = 80;
+		}
+	}
+	else if (winmonNum == 7) {
+		if (winmonMove == 1) {
+			damage = 20;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 40;
+			moveType = TYPE_GRASS;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 60;
+			moveType = TYPE_GRASS;
+			accuracy = 80;
+		}
+	}
+	else if (winmonNum == 8) {
+		if (winmonMove == 1) {
+			damage = 90;
+			moveType = TYPE_NORMAL;
+			accuracy = 90;
+		}
+		if (winmonMove == 2) {
+			damage = 60;
+			moveType = TYPE_GRASS;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 100;
+			moveType = TYPE_GRASS;
+			accuracy = 80;
+		}
+	}
+	else if (winmonNum == 9) {
+		if (winmonMove == 1) {
+			damage = 40;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 2) {
+			damage = 40;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+		if (winmonMove == 3) {
+			damage = 40;
+			moveType = TYPE_NORMAL;
+			accuracy = 100;
+		}
+	}
+
+	srand(time(NULL));
+	r = rand() % 100;
+	if (r <= accuracy) {
+		int mult = handleWinmonMult(moveType, getType(cl->winmonEnemy));
+		if (mult == 1) {
+			damage *= 2;
+		}
+		else if (mult == -1) {
+			damage /= 2;
+		}
+		cl->currentWinmonHealth -= damage * cl->enemyAttackMult;
+		gi.dprintf("They dealt %i damage!\n", damage);
+	}
+	else {
+		gi.dprintf("They missed...\n");
+	}
+
+	cl->winmonTurn = ALLY_TURN;
+
+	Cmd_Help_f(ent);
+	Cmd_Help_f(ent);
+}
+
+qboolean CheckWinmonEnd(edict_t *ent) {
+	gclient_t* cl = ent->client;
+	if (cl->currentWinmonHealth <= 0) {
+		Cmd_Help_f(ent);
+		cl->inWinmonFight = false;
+		Cmd_Kill_f(ent);
+		return true;
+	}
+	else if (cl->enemyWinmonHealth <= 0) {
+		Cmd_Help_f(ent);
+		cl->inWinmonFight = false;
+		T_Damage(cl->enemyWinmonEnt, ent, ent, vec3_origin, ent->s.origin, vec3_origin, 10000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
+		
+		cl->winmonLevels[cl->winmonNum]++;
+
+		if ((cl->winmonNum == 0 || cl->winmonNum == 3 || cl->winmonNum == 6) && cl->winmonLevels[cl->winmonNum] >= 18) {
+			cl->winmonList[cl->winmonNum] += 1;
+		} 
+		else if ((cl->winmonNum == 1 || cl->winmonNum == 4 || cl->winmonNum == 5) && cl->winmonLevels[cl->winmonNum] >= 36) {
+			cl->winmonList[cl->winmonNum] += 1;
+		}
+		
+		return true;
+	}
+	return false;
+}
+
+int getType(int winmonNum) {
+	if (winmonNum == 0 || winmonNum == 1 || winmonNum == 2) {
+		return TYPE_FIRE;
+	}
+	if (winmonNum == 3 || winmonNum == 4 || winmonNum == 5) {
+		return TYPE_WATER;
+	}
+	if (winmonNum == 6 || winmonNum == 7 || winmonNum == 8) {
+		return TYPE_GRASS;
+	}
+	if (winmonNum == 9) {
+		return TYPE_NORMAL;
+	}
+}
+
+int handleWinmonMult(int attackType, int defendType) {
+	if (attackType == TYPE_NORMAL) {
+		return 0;
+	}
+	else if (attackType == TYPE_FIRE) {
+		if (defendType == TYPE_GRASS) {
+			return 1;
+		}
+		if (defendType == TYPE_WATER || defendType == TYPE_FIRE) {
+			return -1;
+		}
+		return 0;
+	}
+	else if (attackType == TYPE_WATER) {
+		if (defendType == TYPE_FIRE) {
+			return 1;
+		}
+		if (defendType == TYPE_GRASS || defendType == TYPE_WATER) {
+			return -1;
+		}
+		return 0;
+	}
+	else if (attackType == TYPE_GRASS) {
+		if (defendType == TYPE_WATER) {
+			return 1;
+		}
+		if (defendType == TYPE_FIRE || defendType == TYPE_GRASS) {
+			return -1;
+		}
+		return 0;
+	}
+	return 0;
+}
+
+void NextWinmonPhase(edict_t* ent) {
+	gclient_t* cl = ent->client;
+
+	if (!cl->inWinmonFight) {
+		return;
+	}
+	if (cl->winmonTurn == ENEMY_TURN) {
+		if (CheckWinmonEnd(ent)) {
+			return;
+		}
+		EnemyWinmonAttack(ent);
+	}
+	if (cl->winmonTurn == ALLY_TURN) {
+		if (CheckWinmonEnd(ent)) {
+			return;
+		}
+	}
+}
+
+void SelectNextWinmon(edict_t* ent) {
+	gclient_t* cl = ent->client;
+
+	if (cl->inWinmonFight) {
+		return;
+	}
+	cl->winmonNum = (cl->winmonNum + 1) % 10;
+	Cmd_Help_f(ent);
+	Cmd_Help_f(ent);
+}
 
 char *ClientTeam (edict_t *ent)
 {
@@ -939,6 +1571,42 @@ void ClientCommand (edict_t *ent)
 		Cmd_Help_f (ent);
 		return;
 	}
+	if (Q_stricmp(cmd, "nextWinmon") == 0)
+	{
+		SelectNextWinmon(ent);
+		return;
+	}
+	if (Q_stricmp(cmd, "nextWinmonPhase") == 0)
+	{
+		NextWinmonPhase(ent);
+		return;
+	}
+	if (Q_stricmp(cmd, "winmonMove1") == 0)
+	{
+		UseWinmonAttack(ent, 1);
+		return;
+	}
+	if (Q_stricmp(cmd, "winmonMove2") == 0)
+	{
+		UseWinmonAttack(ent, 2);
+		return;
+	}
+	if (Q_stricmp(cmd, "winmonMove3") == 0)
+	{
+		UseWinmonAttack(ent, 3);
+		return;
+	}
+	if (Q_stricmp(cmd, "winmonMove4") == 0)
+	{
+		UseWinmonAttack(ent, 4);
+		return;
+	}
+	if (Q_stricmp(cmd, "enemyWinmonAttack") == 0)
+	{
+		EnemyWinmonAttack(ent);
+		return;
+	}
+
 
 	if (level.intermissiontime)
 		return;

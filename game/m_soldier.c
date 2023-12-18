@@ -1218,12 +1218,12 @@ void SP_monster_soldier_x (edict_t *self)
 	self->die = soldier_die;
 
 	self->monsterinfo.stand = soldier_stand;
-	self->monsterinfo.walk = soldier_walk;
-	self->monsterinfo.run = soldier_run;
-	self->monsterinfo.dodge = soldier_dodge;
-	self->monsterinfo.attack = soldier_attack;
+	self->monsterinfo.walk = soldier_stand;
+	self->monsterinfo.run = soldier_stand;
+	self->monsterinfo.dodge = soldier_stand;
+	self->monsterinfo.attack = soldier_stand;
 	self->monsterinfo.melee = NULL;
-	self->monsterinfo.sight = soldier_sight;
+	self->monsterinfo.sight = soldier_stand;
 
 	gi.linkentity (self);
 

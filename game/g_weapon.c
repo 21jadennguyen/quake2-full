@@ -580,39 +580,42 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 		return;
 	}
 
-	if (ent->owner->client)
-		PlayerNoise(ent->owner, ent->s.origin, PNOISE_IMPACT);
+	//gi.dprintf("classname: %s\n", other->classname);
+	EnterWinmonFight(ent->owner, other);
 
-	// calculate position for the explosion entity
-	VectorMA (ent->s.origin, -0.02, ent->velocity, origin);
+	//if (ent->owner->client)
+	//	PlayerNoise(ent->owner, ent->s.origin, PNOISE_IMPACT);
 
-	if (other->takedamage)
-	{
-		T_Damage (other, ent, ent->owner, ent->velocity, ent->s.origin, plane->normal, ent->dmg, 0, 0, MOD_ROCKET);
-	}
-	else
-	{
-		// don't throw any debris in net games
-		if (!deathmatch->value && !coop->value)
-		{
-			if ((surf) && !(surf->flags & (SURF_WARP|SURF_TRANS33|SURF_TRANS66|SURF_FLOWING)))
-			{
-				n = rand() % 5;
-				while(n--)
-					ThrowDebris (ent, "models/objects/debris2/tris.md2", 2, ent->s.origin);
-			}
-		}
-	}
+	//// calculate position for the explosion entity
+	//VectorMA (ent->s.origin, -0.02, ent->velocity, origin);
 
-	T_RadiusDamage(ent, ent->owner, ent->radius_dmg, other, ent->dmg_radius, MOD_R_SPLASH);
+	//if (other->takedamage)
+	//{
+	//	T_Damage (other, ent, ent->owner, ent->velocity, ent->s.origin, plane->normal, ent->dmg, 0, 0, MOD_ROCKET);
+	//}
+	//else
+	//{
+	//	// don't throw any debris in net games
+	//	if (!deathmatch->value && !coop->value)
+	//	{
+	//		if ((surf) && !(surf->flags & (SURF_WARP|SURF_TRANS33|SURF_TRANS66|SURF_FLOWING)))
+	//		{
+	//			n = rand() % 5;
+	//			while(n--)
+	//				ThrowDebris (ent, "models/objects/debris2/tris.md2", 2, ent->s.origin);
+	//		}
+	//	}
+	//}
 
-	gi.WriteByte (svc_temp_entity);
-	if (ent->waterlevel)
-		gi.WriteByte (TE_ROCKET_EXPLOSION_WATER);
-	else
-		gi.WriteByte (TE_ROCKET_EXPLOSION);
-	gi.WritePosition (origin);
-	gi.multicast (ent->s.origin, MULTICAST_PHS);
+	//T_RadiusDamage(ent, ent->owner, ent->radius_dmg, other, ent->dmg_radius, MOD_R_SPLASH);
+
+	//gi.WriteByte (svc_temp_entity);
+	//if (ent->waterlevel)
+	//	gi.WriteByte (TE_ROCKET_EXPLOSION_WATER);
+	//else
+	//	gi.WriteByte (TE_ROCKET_EXPLOSION);
+	//gi.WritePosition (origin);
+	//gi.multicast (ent->s.origin, MULTICAST_PHS);
 
 	G_FreeEdict (ent);
 }
